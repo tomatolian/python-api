@@ -16,6 +16,7 @@ async def root(q= None):
         search_word=model.encode(q)
     else:
         search_word="query not found"
-    # prob = np.dot(stored_embeddings, search_word)  # ベクトル間の類似度を計算
-# rank = np.argsort(prob)[::-1][0 : 10] 
-    return {"message": str(search_word)}
+    prob = np.dot(stored_embeddings, search_word)  # ベクトル間の類似度を計算
+    rank = np.argsort(prob)[::-1][0 : 5]
+    res=[stored_sentences[i].split("@")[0] for i in rank] 
+    return {"message": "\n".join(res)}
