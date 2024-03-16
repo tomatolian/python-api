@@ -12,7 +12,10 @@ app = FastAPI()
 
 @app.get("/")
 async def root(q= None):
-    search_word=model.encode(q)
+    if q:
+        search_word=model.encode(q)
+    else:
+        search_word="query not found"
     # prob = np.dot(stored_embeddings, search_word)  # ベクトル間の類似度を計算
 # rank = np.argsort(prob)[::-1][0 : 10] 
     return {"message": str(search_word)}
